@@ -3,7 +3,7 @@
   <b>🇬🇧 English</b> | <a href="#ukrainian">🇺🇦 Українська</a>
 </p>
 
-# 🚀 GeHi Windows 11 Optimizer
+# 🚀 WinGeHi
 
 > An open-source PowerShell script that applies a set of well-known Windows 11 tweaks, **writes an undo journal for them**, and can roll the changes back. The console interface switches automatically between English and Ukrainian.
 
@@ -27,16 +27,16 @@
 Open **PowerShell as Administrator** and run:
 
 ```powershell
-[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; irm https://raw.githubusercontent.com/GeHixgod/GeHi-Win11-Optimizer/refs/heads/main/GeHi_Optimizer.ps1 | iex
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; irm https://raw.githubusercontent.com/GeHixgod/WinGeHi/refs/heads/main/WinGeHi.ps1 | iex
 ```
 
-When started this way there is no script folder, so logs and backups are stored in `C:\ProgramData\GeHi-Optimizer`.
+When started this way there is no script folder, so logs and backups are stored in `C:\ProgramData\WinGeHi`.
 
-**Prefer to review first?** Download `GeHi_Optimizer.ps1`, read it, then run it from an Administrator PowerShell:
+**Prefer to review first?** Download `WinGeHi.ps1`, read it, then run it from an Administrator PowerShell:
 
 ```powershell
 Set-ExecutionPolicy -Scope Process Bypass
-.\GeHi_Optimizer.ps1
+.\WinGeHi.ps1
 ```
 
 Logs and backups are then stored next to the script.
@@ -117,6 +117,7 @@ USB selective suspend and device power management off, hibernation and Fast Star
 **Not undoable:** Smart App Control, Temp and WinSxS cleanup.
 
 Notes:
+- **Restore** also finds backups made before the rename, in `C:\ProgramData\GeHi-Optimizer`.
 - Mouse and keyboard settings are written to the profile of the user running the script. If you elevate with a different admin account, they will not apply to your own profile.
 - Restart the PC after running the script or after a restore.
 
@@ -140,7 +141,7 @@ The script changes system settings, including security-related ones. Use it at y
   <a href="#english">🇬🇧 English</a> | <b>🇺🇦 Українська</b>
 </p>
 
-# 🚀 GeHi Windows 11 Optimizer
+# 🚀 WinGeHi
 
 > Відкритий PowerShell-скрипт, який застосовує набір відомих твіків Windows 11, **веде журнал для відкату** і вміє скасовувати свої зміни. Консольний інтерфейс автоматично перемикається між українською та англійською.
 
@@ -164,16 +165,16 @@ The script changes system settings, including security-related ones. Use it at y
 Відкрийте **PowerShell від імені Адміністратора** і виконайте:
 
 ```powershell
-[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; irm https://raw.githubusercontent.com/GeHixgod/GeHi-Win11-Optimizer/refs/heads/main/GeHi_Optimizer.ps1 | iex
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8; irm https://raw.githubusercontent.com/GeHixgod/WinGeHi/refs/heads/main/WinGeHi.ps1 | iex
 ```
 
-При такому запуску папки скрипта немає, тому лог і резервні копії зберігаються в `C:\ProgramData\GeHi-Optimizer`.
+При такому запуску папки скрипта немає, тому лог і резервні копії зберігаються в `C:\ProgramData\WinGeHi`.
 
-**Хочете спершу перевірити код?** Завантажте `GeHi_Optimizer.ps1`, прочитайте його й запустіть з PowerShell від імені Адміністратора:
+**Хочете спершу перевірити код?** Завантажте `WinGeHi.ps1`, прочитайте його й запустіть з PowerShell від імені Адміністратора:
 
 ```powershell
 Set-ExecutionPolicy -Scope Process Bypass
-.\GeHi_Optimizer.ps1
+.\WinGeHi.ps1
 ```
 
 Тоді лог і резервні копії зберігаються поруч зі скриптом.
@@ -254,6 +255,7 @@ Set-ExecutionPolicy -Scope Process Bypass
 **Не відкочується:** Smart App Control, очистка Temp і WinSxS.
 
 Примітки:
+- **Відновлення** також знаходить резервні копії, зроблені до перейменування, у `C:\ProgramData\GeHi-Optimizer`.
 - Налаштування миші й клавіатури записуються в профіль користувача, під яким запущено скрипт. Якщо підвищувати права іншим адміністратором, до вашого профілю вони не застосуються.
 - Після запуску скрипта або відновлення перезавантажте ПК.
 
