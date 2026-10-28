@@ -1,12 +1,12 @@
 #Requires -Version 5.1
 # =====================================================================
-#  GeHi Windows 11 Optimizer
+#  WinGeHi
 #  One script, two actions: [1] Optimize  [2] Restore (undo) changes.
 #  Language is detected automatically: Ukrainian Windows UI -> Ukrainian,
 #  anything else -> English. Override for testing:  $env:GEHI_LANG = 'en' | 'uk'
 #
 #  Run in PowerShell as Administrator:
-#     Set-ExecutionPolicy -Scope Process Bypass; .\GeHi_Optimizer.ps1
+#     Set-ExecutionPolicy -Scope Process Bypass; .\WinGeHi.ps1
 # =====================================================================
 
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
@@ -44,7 +44,7 @@ $Strings = @{
         'baseList'    = '  - базові налаштування (миша/клавіатура, телеметрія, Bing-пошук, Game DVR)'
         'pcList'      = '  - ПК: план Ultimate Performance, USB/енергозбереження, гібернація вимк., таймер ядра'
         'cont'        = 'Продовжити'
-        'logHeader'   = 'GeHi Windows 11 Optimizer, запуск {0}'
+        'logHeader'   = 'WinGeHi, запуск {0}'
         'startLog'    = 'Запуск оптимізації. Пристрій: {0}, режим: {1}'
         'warnReg'     = '  [!] Не вдалося записати {0}\{1} : {2}'
         'svcOff'      = '  служба {0} вимкнена'
@@ -166,7 +166,7 @@ $Strings = @{
         'baseList'    = '  - base tweaks (mouse/keyboard, telemetry, Bing search, Game DVR)'
         'pcList'      = '  - PC: Ultimate Performance power plan, USB/device power saving off, hibernation off, kernel timer'
         'cont'        = 'Continue'
-        'logHeader'   = 'GeHi Windows 11 Optimizer, started {0}'
+        'logHeader'   = 'WinGeHi, started {0}'
         'startLog'    = 'Starting optimization. Device: {0}, mode: {1}'
         'warnReg'     = '  [!] Failed to write {0}\{1} : {2}'
         'svcOff'      = '  service {0} disabled'
@@ -292,16 +292,17 @@ if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
 
 # Where logs and backups live: next to the script; when run via "irm | iex"
 # there is no script folder, so use ProgramData instead of the current folder.
-$DataDir    = Join-Path $env:ProgramData 'GeHi-Optimizer'
+$DataDir    = Join-Path $env:ProgramData 'WinGeHi'
+$LegacyDir  = Join-Path $env:ProgramData 'GeHi-Optimizer'   # backups made before the rename
 $Root       = if ($PSScriptRoot) { $PSScriptRoot } else { $DataDir }
-$SearchDirs = @($Root, $DataDir) | Select-Object -Unique
+$SearchDirs = @($Root, $DataDir, $LegacyDir) | Select-Object -Unique
 
 # ---------------------------------------------------------------------
 #  Main menu
 # ---------------------------------------------------------------------
 Clear-Host
 Write-Host "====================================================" -ForegroundColor Green
-Write-Host "   GeHi Windows 11 Optimizer" -ForegroundColor Green
+Write-Host "   WinGeHi" -ForegroundColor Green
 Write-Host "====================================================" -ForegroundColor Green
 Write-Host ""
 Write-Host (Tr 'mainQ') -ForegroundColor Yellow
@@ -386,7 +387,7 @@ if ($Action -eq '1') {
     # ---------------------------------------------------------------
     Clear-Host
     Write-Host "====================================================" -ForegroundColor Green
-    Write-Host "   GeHi Windows 11 Optimizer" -ForegroundColor Green
+    Write-Host "   WinGeHi" -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Green
     Write-Host ""
     Write-Host (Tr 'devQ') -ForegroundColor Yellow
@@ -485,7 +486,7 @@ if ($Action -eq '1') {
     Do-Step 'RP' {
         Set-Reg 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore' 'SystemRestorePointCreationFrequency' 0 -NoUndo
         Enable-ComputerRestore -Drive "$env:SystemDrive" -ErrorAction SilentlyContinue
-        Checkpoint-Computer -Description "GeHi before optimization" -RestorePointType MODIFY_SETTINGS -ErrorAction Stop
+        Checkpoint-Computer -Description "WinGeHi before optimization" -RestorePointType MODIFY_SETTINGS -ErrorAction Stop
     }
 
     Log "> $(Tr 'sBackup')" 'Cyan'
